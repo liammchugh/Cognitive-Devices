@@ -1,5 +1,7 @@
 import torch
 from torch.utils.data import DataLoader
+import SpeechRecognition pyaudio
+
 
 # Load saved model and hyperparameters
 checkpoint = torch.load('best_ser_model_and_params.pth')
