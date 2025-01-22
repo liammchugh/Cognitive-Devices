@@ -3,8 +3,8 @@
 Combine everything into an end-to-end pipeline
 and apply a simplistic RLHF approach.
 
-- We load the trained VAE, Diffusion model, and AccelerometerToLatent model.
-- We synthesize short musical segments from random or real accelerometer data.
+- We load the trained Encoder, decoder model.
+- synthesize short musical segments from random or real accelerometer data.
 - We collect 'feedback' (in a placeholder way), train a reward model,
   and perform policy-gradient updates on the generation pipeline.
 
