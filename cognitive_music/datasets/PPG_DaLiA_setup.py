@@ -190,7 +190,7 @@ if __name__ == "__main__":
     print(os.listdir())
     # if "cognitive_music\datasets\PPG_ACC_processed_data" not in os.listdir():
     #     input("The processed data is not found. Press Enter to process the data...")
-    df, train_df, test_df = prep_training_data()
+    # df, train_df, test_df = prep_training_data()
     # else:
     #     print("Processed data found. Loading...")
     df = pd.read_csv("cognitive_music\datasets\PPG_ACC_processed_data\data.csv")
@@ -200,11 +200,16 @@ if __name__ == "__main__":
     log_mel_speci = mel_spectrogram(np.array(df.ACCi.tolist()))
     log_mel_specj = mel_spectrogram(np.array(df.ACCj.tolist()))
     log_mel_speck = mel_spectrogram(np.array(df.ACCk.tolist()))
+    # Save each spectrogram to appropriate file
+    np.save("cognitive_music/datasets/PPG_ACC_processed_data/log_mel_speci.npy", log_mel_speci)
+    np.save("cognitive_music/datasets/PPG_ACC_processed_data/log_mel_specj.npy", log_mel_specj)
+    np.save("cognitive_music/datasets/PPG_ACC_processed_data/log_mel_speck.npy", log_mel_speck)
+
     import matplotlib.pyplot as plt
 
     # Display the first frame of log_mel_speci
     plt.figure(figsize=(10, 4))
-    plt.imshow(log_mel_speci[1], aspect='auto', origin='lower')
+    plt.imshow(log_mel_speci[:, 0:300], aspect='auto', origin='lower')
     plt.colorbar(format='%+2.0f dB')
     plt.title('Log-Mel Spectrogram (First Frame) - ACCi')
     plt.xlabel('Time')
