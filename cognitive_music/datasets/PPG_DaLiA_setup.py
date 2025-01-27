@@ -137,6 +137,22 @@ def prep_training_data():
     print(f"HR labels shape: {hr_labels.shape}")
     print(f"Activity labels shape: {activities.shape}")
 
+    # Dictionary mapping activity IDs to their descriptions
+    activity_labels = {
+        0: "Transition",  # For transient periods or unlabelled data
+        1: "Sitting and Reading",
+        2: "Climbing Stairs",
+        3: "Playing Table Soccer",
+        4: "Cycling Outdoors",
+        5: "Driving a Car",
+        6: "Lunch Break",
+        7: "Walking",
+        8: "Working at Desk"
+    }
+
+    # Map activity IDs to their descriptions
+    activity_descr = [activity_labels[act_id] for act_id in activities]
+
     # Prepare DataFrame for saving
     df = pd.DataFrame({
         "PPG": list(ppg_data),
@@ -145,6 +161,7 @@ def prep_training_data():
         "ACCk": list(acc_data[:, 2]),
         "HeartRate": hr_labels,
         "Activity": activities,
+        "ActivityDescr": activity_descr,
         "SubjectID": subject_ids_list,
         "Age": ages,
         "Gender": genders,
@@ -155,17 +172,18 @@ def prep_training_data():
     })
 
     # Split into training and testing sets
-    train_df, test_df = train_test_split(df, test_size=0.2, random_state=42)
+    # train_df, test_df = train_test_split(df, test_size=0.2, random_state=42)
 
     # Save processed data
-    os.makedirs("cognitive_musisc/datasets/PPG_ACC_processed_data", exist_ok=True)
-    df.to_csv("datasets/PPG_ACC_processed_data/data.csv", index=False)
-    train_df.to_csv("datasets/PPG_ACC_processed_data/train_data.csv", index=False)
-    test_df.to_csv("datasets/PPG_ACC_processed_data/test_data.csv", index=False)
+    os.makedirs("cognitive_music/datasets/PPG_ACC_processed_data", exist_ok=True)
+    df.to_csv("cognitive_music/datasets/PPG_ACC_processed_data/data.csv", index=False)
+    # train_df.to_csv("datasets/PPG_ACC_processed_data/train_data.csv", index=False)
+    # test_df.to_csv("datasets/PPG_ACC_processed_data/test_data.csv", index=False)
 
-    print("Processed data saved to train_data.csv and test_data.csv")
+    print("Processed data saved to data.csv, maybe also train_data.csv and test_data.csv")
 
-    return df, train_df, test_df
+    # return df, train_df, test_df
+    return df
 
 def mel_spectrogram(rawdata):
     """
@@ -188,11 +206,11 @@ def mel_spectrogram(rawdata):
 if __name__ == "__main__":
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     print(os.listdir())
-    # if "cognitive_music\datasets\PPG_ACC_processed_data" not in os.listdir():
-    #     input("The processed data is not found. Press Enter to process the data...")
-    # df, train_df, test_df = prep_training_data()
-    # else:
-    #     print("Processed data found. Loading...")
+    if not os.path.exists("cognitive_music/datasets/PPG_ACC_processed_data/data.csv"):
+        input("The processed data is not found. Press Enter to process the data...")
+        df = prep_training_data()
+    else:
+        print("Processed data found. Loading...")
     df = pd.read_csv("cognitive_music\datasets\PPG_ACC_processed_data\data.csv")
         # train_df = pd.read_csv("PPG_ACC_processed_data/train_data.csv")
         # test_df = pd.read_csv("PPG_ACC_processed_data/test_data.csv")
@@ -214,6 +232,18 @@ if __name__ == "__main__":
     plt.title('Log-Mel Spectrogram (First Frame) - ACCi')
     plt.xlabel('Time')
     plt.ylabel('Mel Frequency')
+
+    # Calculate the relative time spent on each activity
+    activity_counts = df['ActivityDescr'].value_counts(normalize=True) * 100
+
+    # Create a pie chart
+    plt.figure(figsize=(10, 6))
+    plt.pie(activity_counts, labels=activity_counts.index, autopct='%1.1f%%', startangle=140)
+    plt.title('Relative Time Spent on Each Activity')
+    plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.    
+
+
     plt.show()
+
 
 
