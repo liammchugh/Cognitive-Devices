@@ -2,8 +2,7 @@ import speech_recognition as sr
 import time
 import threading
 
-# Placeholder for your Emotive Classifier
-# from your_emotive_classifier import ser_inference
+# from emotive_classifier import ser_inference
 # Example: ser_result = ser_inference.process(text_context, image_context)
 
 # Placeholder for Gemma 2B or any small LM you might use
