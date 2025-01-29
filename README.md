@@ -1,4 +1,4 @@
-# Emotive Cognition & Processing Assistance
+# Device Cognition & Processing
 
 ### Impulse-Senstive Generative Music for Focus
 Active, generative audio stimulation for focus & mood stabilization...
