@@ -1,2 +1,0 @@
-pip install qwen-vl-utils
-pip install git+https://github.com/huggingface/transformers
