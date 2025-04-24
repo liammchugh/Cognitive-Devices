@@ -1,0 +1,13 @@
+# data
+# data/
+*.zip
+*.npy
+*.csv
+*.json
+*h5
+*.pkl
+*.parquet
+
+# exceptions
+!*.py
+!*.swift

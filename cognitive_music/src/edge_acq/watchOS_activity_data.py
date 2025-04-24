@@ -1,6 +1,7 @@
 ''' 
 Sample Code from Tyler Hutcherson https://github.com/tylerhutcherson
-Cleaning and preparing sensor data from watchOS devices for building an Activity Classifier on Skafos
+2025: Skafos is outdated and no longer available
+This code is a sample of how to clean and prepare the data for training an activity classifier
 '''
 
 import json
