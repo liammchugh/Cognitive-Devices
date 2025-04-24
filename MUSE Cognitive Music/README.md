@@ -1,4 +1,5 @@
-# MUSE: User-Sensitive musical Entrainment (E6692 Spring 2025: Final Project)
+# MUSE: User-Sensitive musical Entrainment 
+(E6692 Spring 2025: Final Project)
 
 #### Activity-Sensitive Generative Music
 MUSE is a system designed to provide active, low-latency audio stimulation aimed at enhancing motivation, focus, and mood stabilization. By fusing real-time activity data with stimulatory audio generation, MUSE seeks to improve focus and task performance.
